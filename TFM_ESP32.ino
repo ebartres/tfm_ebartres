@@ -75,7 +75,6 @@ void setup() {
   Serial.println("");
   Serial.println("");
   sensor.setTimeout(500);
-
 }
 
 //Callback MQTT
@@ -151,7 +150,7 @@ void loop() {
   long DISTANCE_SENSOR = (sensor.readRangeSingleMillimeters());
   long DISTANCE_SENSOR2 = (sensor2.readRangeSingleMillimeters());
 
- //Conta les que entren
+ //Conta les persones que entren
     if(DISTANCE_SENSOR/1000.000 < 8.19 && sortint==0){ 
       if(persones_dins>=aforament_max){
         Serial.println("...AFORAMENT MÀXIM!, ESPERI PER ENTRAR!...");
@@ -180,7 +179,7 @@ void loop() {
       client.publish("hmataro/salaespera1/persones", msg);
       //Passo al broker les persones en %
       snprintf (msg, MSG_BUFFER_SIZE, "%ld", (int)((float)persones_dins/(float)aforament_max*100));
-      client.publish("hmataro/salaespera1/persones_percentatge", msg);
+      client.publish("/persones_percentatge", msg);
       Serial.print("Persones dins: ");
       Serial.println(persones_dins);
       //La persona ha entrat inicialitzo la variable entrant
